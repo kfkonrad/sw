@@ -56,6 +56,9 @@ fi
 while [ true ]; do
     STOPWATCH=$(TZ=UTC datef $DATE_INPUT $DATE_FORMAT | ( [[ "$NANOS_SUPPORTED" ]] && sed 's/.\{7\}$//' || cat ) )
     printf "\r\e%s" $STOPWATCH
-    sleep 0.03
+    read -t 0.03 -N 1 input
+    if [[ -n $input ]]; then
+        break
+    fi
 done
 
